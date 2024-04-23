@@ -7,11 +7,14 @@
 
 import Foundation
 
-class ThreadSafeCache<Key: Hashable, Value> {
+public class ThreadSafeCache<Key: Hashable, Value> {
     private var cache = [Key: Value]()
     private let lock = NSLock()
 
-    func setValue(_ value: Value, forKey key: Key) {
+    public init() {
+    }
+
+    public func setValue(_ value: Value, forKey key: Key) {
         lock.lock()
         defer {
             lock.unlock()
@@ -19,7 +22,7 @@ class ThreadSafeCache<Key: Hashable, Value> {
         cache[key] = value
     }
 
-    func getValue(forKey key: Key) -> Value? {
+    public func getValue(forKey key: Key) -> Value? {
         lock.lock()
         defer {
             lock.unlock()
@@ -27,7 +30,7 @@ class ThreadSafeCache<Key: Hashable, Value> {
         return cache[key]
     }
 
-    func removeValue(forKey key: Key) {
+    public func removeValue(forKey key: Key) {
         lock.lock()
         defer {
             lock.unlock()
@@ -35,7 +38,7 @@ class ThreadSafeCache<Key: Hashable, Value> {
         cache.removeValue(forKey: key)
     }
 
-    func removeAll() {
+    public func removeAll() {
         lock.lock()
         defer {
             lock.unlock()
@@ -43,7 +46,7 @@ class ThreadSafeCache<Key: Hashable, Value> {
         cache.removeAll()
     }
 
-    subscript(key: Key) -> Value? {
+    public subscript(key: Key) -> Value? {
         set(newValue) {
             lock.lock()
             defer {
@@ -58,5 +61,39 @@ class ThreadSafeCache<Key: Hashable, Value> {
             }
             return cache[key]
         }
+    }
+}
+
+extension ThreadSafeCache: Collection {
+    public var startIndex: Dictionary<Key, Value>.Index {
+        lock.lock()
+        defer {
+            lock.unlock()
+        }
+        return self.cache.startIndex
+    }
+
+    public var endIndex: Dictionary<Key, Value>.Index {
+        lock.lock()
+        defer {
+            lock.unlock()
+        }
+        return self.cache.endIndex
+    }
+
+    public func index(after i: Dictionary<Key, Value>.Index) -> Dictionary<Key, Value>.Index {
+        lock.lock()
+        defer {
+            lock.unlock()
+        }
+        return cache.index(after: i)
+    }
+
+    public subscript(index: Dictionary<Key, Value>.Index) -> Dictionary<Key, Value>.Element {
+        lock.lock()
+        defer {
+            lock.unlock()
+        }
+        return self.cache[index]
     }
 }
