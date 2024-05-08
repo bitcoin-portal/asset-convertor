@@ -13,13 +13,13 @@ public protocol AssetConverterInteractorProtocol {
 
 public final class AssetConverterInteractor: AssetConverterInteractorProtocol {
     /// Dictionary data format Provider:  [ProviderAsset: AssetIdV2].
-    private var providerAssetTo: ThreadSafeCache<Provider, [String: String]>
+    private var providerAssetTo: ThreadSafeDictionary<Provider, [String: String]>
     /// Dictionary data format Provider:  [ AssetIdV2: ProviderAsset].
-    private var reverseproviderAssetTo: ThreadSafeCache<Provider, [String: String]>
+    private var reverseproviderAssetTo: ThreadSafeDictionary<Provider, [String: String]>
 
     public init() {
-        providerAssetTo = ThreadSafeCache<Provider, [String: String]>()
-        reverseproviderAssetTo = ThreadSafeCache<Provider, [String: String]>()
+        providerAssetTo = ThreadSafeDictionary<Provider, [String: String]>()
+        reverseproviderAssetTo = ThreadSafeDictionary<Provider, [String: String]>()
     }
 
     public func getAssetList(provider: Provider) -> [String] {

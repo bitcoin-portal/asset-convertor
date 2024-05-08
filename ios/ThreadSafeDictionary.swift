@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class ThreadSafeCache<Key: Hashable, Value> {
+public class ThreadSafeDictionary<Key: Hashable, Value> {
     private var cache = [Key: Value]()
     private let lock = NSLock()
 
@@ -64,7 +64,7 @@ public class ThreadSafeCache<Key: Hashable, Value> {
     }
 }
 
-extension ThreadSafeCache: Collection {
+extension ThreadSafeDictionary: Collection {
     public var startIndex: Dictionary<Key, Value>.Index {
         lock.lock()
         defer {

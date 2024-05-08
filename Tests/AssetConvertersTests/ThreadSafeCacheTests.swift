@@ -10,9 +10,9 @@ import XCTest
 
 @testable import AssetConverters
 
-final class ThreadSafeCacheTests: XCTestCase {
+final class ThreadSafeDictionaryTests: XCTestCase {
     func testCanStoreAndRetrieveValueConcurrently() {
-        let cache = ThreadSafeCache<String, Int>()
+        let cache = ThreadSafeDictionary<String, Int>()
         DispatchQueue.concurrentPerform(iterations: 100000) { iteration in
             let key = "Key\(iteration)"
             cache.setValue(iteration, forKey: key)
