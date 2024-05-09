@@ -13,18 +13,21 @@ public protocol AssetConverterInteractorProtocol {
 
 public final class AssetConverterInteractor: AssetConverterInteractorProtocol {
     /// Dictionary data format Provider:  [ProviderAsset: AssetIdV2].
-    private var providerAssetTo = [Provider: [String: String]]()
+    private var providerAssetTo: ThreadSafeDictionary<Provider, [String: String]>
     /// Dictionary data format Provider:  [ AssetIdV2: ProviderAsset].
-    private var reverseproviderAssetTo = [Provider: [String: String]]()
+    private var reverseproviderAssetTo: ThreadSafeDictionary<Provider, [String: String]>
 
-    public init() {}
+    public init() {
+        providerAssetTo = ThreadSafeDictionary<Provider, [String: String]>()
+        reverseproviderAssetTo = ThreadSafeDictionary<Provider, [String: String]>()
+    }
 
     public func getAssetList(provider: Provider) -> [String] {
         let cachedAssets = providerAssetTo[provider]
         guard cachedAssets == nil else {
             return cachedAssets?.compactMap({ $0.value }) ?? []
         }
-        let fetchedList = getAssetList(provider: provider)!
+        let fetchedList = loadAssetList(provider: provider)!
         providerAssetTo[provider] = fetchedList
         return fetchedList.map({ $0.value })
     }
@@ -34,7 +37,7 @@ public final class AssetConverterInteractor: AssetConverterInteractorProtocol {
         guard cachedAssets == nil else {
             return cachedAssets?[asset]
         }
-        let fetchedList = getAssetList(provider: provider)!
+        let fetchedList = loadAssetList(provider: provider)!
         providerAssetTo[provider] = fetchedList
         return fetchedList[asset]
     }
@@ -47,7 +50,7 @@ public final class AssetConverterInteractor: AssetConverterInteractorProtocol {
         var reverseAssetList = [String: String]()
         var cachedAssets = providerAssetTo[provider]
         if cachedAssets == nil {
-            providerAssetTo[provider] = getAssetList(provider: provider)!
+            providerAssetTo[provider] = loadAssetList(provider: provider)!
             cachedAssets = providerAssetTo[provider]
         }
         for (key, value) in cachedAssets ?? [:] {
@@ -57,7 +60,7 @@ public final class AssetConverterInteractor: AssetConverterInteractorProtocol {
         return reverseAssetList[assetIdV2]
     }
 
-    private func getAssetList(provider: Provider) -> [String: String]? {
+    private func loadAssetList(provider: Provider) -> [String: String]? {
         let fileName = provider.rawValue
         guard let path = Bundle.module.path(forResource: fileName, ofType: "json") else {
             return nil
