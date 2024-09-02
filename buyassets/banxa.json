@@ -41,7 +41,7 @@
             "android_asset_protocol": "ERC_20_PROTOCOL"
         },
         {
-            "compound_key": "MATIC-MATIC",
+            "compound_key": "POL-MATIC",
             "asset_id": "MATIC",
             "ios_blockchain": "MATIC",
             "ios_asset_protocol": "MATIC",
