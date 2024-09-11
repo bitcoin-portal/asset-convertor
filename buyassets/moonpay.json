@@ -121,15 +121,15 @@
             "android_asset_protocol": "ERC_20_PROTOCOL"
         },
         {
-            "currency_code": "MATIC",
-            "asset_id": "0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0",
+            "currency_code": "POL",
+            "asset_id": "0x455e53cbb86018ac2b8092fdcd39d8444affc3f6",
             "ios_blockchain": "ETH",
             "ios_asset_protocol": "ERC20",
             "android_blockchain": "ETH_BLOCKCHAIN",
             "android_asset_protocol": "ERC_20_PROTOCOL"
         },
         {
-            "currency_code": "MATIC_POLYGON",
+            "currency_code": "POL_POLYGON",
             "asset_id": "MATIC",
             "ios_blockchain": "MATIC",
             "ios_asset_protocol": "MATIC",
