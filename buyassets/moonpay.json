@@ -122,7 +122,7 @@
         },
         {
             "currency_code": "POL",
-            "asset_id": "0x455e53cbb86018ac2b8092fdcd39d8444affc3f6",
+            "asset_id": "0x455e53CBB86018Ac2B8092FdCd39d8444aFFC3F6",
             "ios_blockchain": "ETH",
             "ios_asset_protocol": "ERC20",
             "android_blockchain": "ETH_BLOCKCHAIN",
