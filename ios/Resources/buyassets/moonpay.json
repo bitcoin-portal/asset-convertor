@@ -300,17 +300,17 @@
             "currency_code": "USDT_POLYGON",
             "asset_id": "0xc2132D05D31c914a87C6611C10748AEb04B58e8F",
             "ios_blockchain": "MATIC",
-            "ios_asset_protocol": "MATIC",
+            "ios_asset_protocol": "ERC20",
             "android_blockchain": "MATIC_BLOCKCHAIN",
-            "android_asset_protocol": "MATIC_PROTOCOL"
+            "android_asset_protocol": "ERC_20_PROTOCOL"
         },
         {
             "currency_code": "USDC_POLYGON",
             "asset_id": "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359",
             "ios_blockchain": "MATIC",
-            "ios_asset_protocol": "MATIC",
+            "ios_asset_protocol": "ERC20",
             "android_blockchain": "MATIC_BLOCKCHAIN",
-            "android_asset_protocol": "MATIC_PROTOCOL"
+            "android_asset_protocol": "ERC_20_PROTOCOL"
         }
     ]
 }
