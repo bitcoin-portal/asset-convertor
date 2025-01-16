@@ -2,25 +2,34 @@ package com.bitcoin.assetconverter.providers
 
 import android.content.Context
 import com.bitcoin.assetconverter.models.ProviderAssets
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 
-class ProviderAssetManager(context: Context){
+class ProviderAssetManager(private val context: Context){
 
-    val assets: MutableMap<ProviderType, List<ProviderAssets.Assets>> = mutableMapOf()
-    init {
-        val json = Json { ignoreUnknownKeys = true }
-        ProviderType.values().forEach {
-            val assetManager = context.assets
-            assetManager.open(it.resource).use { inputStream ->
-                val assetMapping: ProviderAssets = json.decodeFromStream(inputStream)
-                assets[it] = assetMapping.assets
-            }
+    private val assets: MutableMap<ProviderType, List<ProviderAssets.Assets>> = mutableMapOf()
+    private val json = Json { ignoreUnknownKeys = true }
+
+    suspend fun preloadAssets() = withContext(Dispatchers.IO) {
+        ProviderType.values().forEach { provider ->
+            assets[provider] = loadAssets(provider)
         }
     }
 
-    fun getAssets(provider: ProviderType): List<ProviderAssets.Assets>{
-        return assets[provider] ?: listOf()
+    private fun loadAssets(provider: ProviderType): List<ProviderAssets.Assets> {
+        return try {
+            context.assets.open(provider.resource).use { inputStream ->
+                val assetMapping: ProviderAssets = json.decodeFromStream(inputStream)
+                assetMapping.assets
+            }
+        } catch (e: Exception) {
+            emptyList()
+        }
     }
 
+    fun getAssets(provider: ProviderType): List<ProviderAssets.Assets> {
+        return assets[provider] ?: emptyList()
+    }
 }
