@@ -41,7 +41,7 @@
             "android_asset_protocol": "ERC_20_PROTOCOL"
         },
         {
-            "compound_key": "matic_polygon",
+            "compound_key": "pol_polygon",
             "asset_id": "MATIC",
             "ios_blockchain": "MATIC",
             "ios_asset_protocol": "MATIC",
@@ -291,6 +291,22 @@
         {
             "currency_code": "zrx_ethereum",
             "asset_id": "0xE41d2489571d322189246DaFA5ebDe1F4699F498",
+            "ios_blockchain": "ETH",
+            "ios_asset_protocol": "ERC20",
+            "android_blockchain": "ETH_BLOCKCHAIN",
+            "android_asset_protocol": "ERC_20_PROTOCOL"
+        },
+        {
+            "currency_code": "weth_ethereum",
+            "asset_id": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+            "ios_blockchain": "ETH",
+            "ios_asset_protocol": "ERC20",
+            "android_blockchain": "ETH_BLOCKCHAIN",
+            "android_asset_protocol": "ERC_20_PROTOCOL"
+        },
+        {
+            "currency_code": "enj_ethereum",
+            "asset_id": "0xF629cBd94d3791C9250152BD8dfBDF380E2a3B9c",
             "ios_blockchain": "ETH",
             "ios_asset_protocol": "ERC20",
             "android_blockchain": "ETH_BLOCKCHAIN",
